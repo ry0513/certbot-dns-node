@@ -1,0 +1,24 @@
+{
+  "name": "certbot-dns-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "getpath":"node tools/argv.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ry0513/certbot-dns-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ry0513/certbot-dns-node/issues"
+  },
+  "homepage": "https://github.com/ry0513/certbot-dns-node#readme",
+  "dependencies": {
+    "tencentcloud-sdk-nodejs": "^4.0.470"
+  }
+}
