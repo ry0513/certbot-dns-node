@@ -33,11 +33,11 @@ $ chmod 0777 certbot-dns.sh
 - 先测试一下是否有错误
 
   ```
-  certbot certonly --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory --manual-  auth-hook "/脚本所在目录/certbot-dns.sh add" --manual-cleanup-hook "/脚本所在目录/certbot-dns.sh clean" -d *.example.com --dry-run 
+  $ certbot certonly --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory --manual-  auth-hook "/脚本所在目录/certbot-dns.sh add" --manual-cleanup-hook "/脚本所在目录/certbot-dns.sh clean" -d *.example.com --dry-run 
   ```
   **certbot-dns.sh参数说明**
   - add  添加解析记录
-   - clean 删除解析记录
+  - clean 删除解析记录
 
   **certbot参数说明**
   - certonly：表示采用验证模式，只会获取证书，不会为web服务器配置证书
@@ -52,22 +52,33 @@ $ chmod 0777 certbot-dns.sh
 -  实际申请（去除 --dry-run 参数）
 
     ```
-    certbot certonly --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory --manual-auth-hook "/脚本所在目录/certbot-dns.sh add" --manual-cleanup-hook "/脚本所在目录/certbot-dns.sh clean" -d *.example.com 
+    $ certbot certonly --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory --manual-auth-hook "/脚本所在目录/certbot-dns.sh add" --manual-cleanup-hook "/脚本所在目录/certbot-dns.sh clean" -d *.example.com 
     ```
 
 ### 查看本机已安装证书
 ```
-certbot certificates
+$ certbot certificates
 ```
+### 续期证书
 
-
- ### 续期证书
-
- - 对所有证书续签(只对即将过期的证书续期，无视剩余时间续期可在后面添加参数 **--force-renewal** )
+ - 对所有证书续签 ( 默认只对即将过期的证书续期 )
    ```
-   certbot renew --manual --preferred-challenges dns --manual-auth-hook "/脚本所在目录/certbot-dns.sh add" --manual-cleanup-hook "/脚本所在目录/certbot-dns.sh clean"
+   $ certbot renew --manual --preferred-challenges dns --manual-auth-hook "/脚本所在目录/certbot-dns.sh add" --manual-cleanup-hook "/脚本所在目录/certbot-dns.sh clean"
    ```
+
+ - 对所有证书续签 ( 无视剩余时间续期可在后面添加参数 **--force-renewal** )
+   ```
+   $ certbot renew --manual --preferred-challenges dns --manual-auth-hook "/脚本所在目录/certbot-dns.sh add" --manual-cleanup-hook "/脚本所在目录/certbot-dns.sh clean" --force-renewal
+   ```
+ - 如果本机也运行对应的web服务（nginx等），在续期完成后可以自动重启web服务 添加参数 **--deploy-hook** 
+   ```
+   # 例如nginx
+   $ certbot renew --manual --preferred-challenges dns --manual-auth-hook "/脚本所在目录/certbot-dns.sh add" --manual-cleanup-hook "/脚本所在目录/certbot-dns.sh clean" --deploy-hook  "nginx -s reload"
+   ```
+
+
 - 自动续期
   ```
-  待定
+  # 待定
   ```
+
